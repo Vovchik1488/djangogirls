@@ -1,16 +1,24 @@
-{% load static %} 
+<!DOCTYPE html>  
+{% extends 'blog/base.html' %}
+{% load staticfiles %} 
+
 <html>
 
     <head>
         <title>Vova's blog</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+        <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}" />
         
     </head> 
        <body>
 
-        <div Frog>
+        <div class="page-header">
+            <h1><a href=""></a>Django Vovchik 1488</h1>
+        </div>
+
+        <div class="Frog">
             <h1>Лягушка озерная</h1>
             <p><strong>Лягушка озерная</strong> ( Pelophylax ridibundus , синоним Rana ridibunda ) -<br>
                вид земноводных, входящих в подрода зеленых (водяных) лягушек<br>
@@ -49,14 +57,24 @@
         </div>
 
         </div>
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
 
-        {% for post in posts %}
-            <div>
-                <p>published: {{ post.published_date }}</p>
-                <h1><a href="#">{{ post.title }}</a></h1>
-                <p>{{ post.text|linebreaksbr }}</p>
+                    {% block content %}
+                        {% for post in posts %}
+                            <div class="post">
+                                <div class="date">
+                                    {{ post.published_date }}
+                                </div>
+                                    <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+                                <p>{{ post.text|linebreaksbr }}</p>
+                        </div>
+                    {% endfor %}
+                 {% endblock %}
             </div>
-        {% endfor %}
-    </body>
+        </div>
+    </div>
+</body>
 
 </html>
